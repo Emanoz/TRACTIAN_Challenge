@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:tractian_app/data/models/base_model.dart';
 import 'package:tractian_app/data/models/specifications_model.dart';
 import 'package:tractian_app/data/models/user_model.dart';

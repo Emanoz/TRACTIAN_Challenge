@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:tractian_app/data/models/base_model.dart';
 
 class User extends BaseModel{

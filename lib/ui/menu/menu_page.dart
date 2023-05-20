@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tractian_app/ui/workOrders/work_orders_page.dart';
 import 'package:tractian_app/utils/state_controller.dart';
 
 class MenuPage extends StatelessWidget {
   MenuPage({Key? key}) : super(key: key);
 
   final List<Widget> _pages = [
-    Container(color: Colors.white),
+    const WorkOrdersPage(),
     Container(color: Colors.amber),
     Container(color: Colors.black),
   ];
