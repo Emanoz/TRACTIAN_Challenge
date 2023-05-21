@@ -9,13 +9,23 @@ class ItemView extends StatelessWidget {
   final String title;
   final String subTitle;
   final AssetsStatus? status;
+  final bool hasIcon;
+  final VoidCallback? onTap;
 
-  const ItemView(this.title, this.status, this.image, this.subTitle, {Key? key}) : super(key: key);
+  const ItemView({
+    Key? key,
+    required this.title,
+    this.status,
+    this.image,
+    required this.subTitle,
+    this.hasIcon = false,
+    this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
@@ -39,14 +49,31 @@ class ItemView extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4.0),
-                    child: Text(
-                      subTitle,
-                      style: GoogleFonts.roboto(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w500,
-                        color: const Color(0xFF8C959F),
-                      ),
-                    ),
+                    child: hasIcon
+                        ? Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 4.0),
+                                child: SvgPicture.asset('resources/icons/locationIcon.svg'),
+                              ),
+                              Text(
+                                subTitle,
+                                style: GoogleFonts.roboto(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: const Color(0xFF8C959F),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Text(
+                            subTitle,
+                            style: GoogleFonts.roboto(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w500,
+                              color: const Color(0xFF8C959F),
+                            ),
+                          ),
                   ),
                   if (status != null)
                     Container(

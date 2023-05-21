@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tractian_app/ui/workOrders/work_order_detail_page.dart';
-import 'package:tractian_app/ui/workOrders/work_order_form_page.dart';
+import 'package:tractian_app/ui/menu/menu_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,8 +23,7 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.white38,
         )
       ),
-      home: WorkOrderFormPage(),
-      //home: MenuPage(),
+      home: MenuPage(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tractian_app/ui/workOrders/work_order_form_page.dart';
 import 'package:tractian_app/utils/enums/assets_status.dart';
 import '../../widgets/item_view.dart';
 
@@ -36,11 +37,14 @@ class WorkOrdersPage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 16.0),
                 child: ListView.separated(
                   itemCount: 30,
-                  itemBuilder: (_, item) => const ItemView(
-                    'exemplo',
-                    AssetsStatus.inProgress,
-                    'resources/icons/exampleImage.svg',
-                    'exemploSub',
+                  itemBuilder: (_, item) => ItemView(
+                    title: 'exemplo',
+                    status: AssetsStatus.inProgress,
+                    image: 'resources/icons/exampleImage.svg',
+                    subTitle: 'exemploSub',
+                    hasIcon: false,
+                    onTap: () =>
+                        Navigator.of(context).push(MaterialPageRoute(builder: (_) => const WorkOrderFormPage())),
                   ),
                   separatorBuilder: (_, index) => Container(
                     color: const Color(0xFFD0D7DE),
@@ -52,7 +56,9 @@ class WorkOrdersPage extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {}, child: const Icon(Icons.add)),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const WorkOrderFormPage())),
+          child: const Icon(Icons.add)),
     );
   }
 }

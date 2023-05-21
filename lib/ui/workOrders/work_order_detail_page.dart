@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tractian_app/ui/workOrders/work_order_form_page.dart';
 import 'package:tractian_app/utils/state_controller.dart';
-
 import '../../widgets/custom_checkbox.dart';
 import '../../widgets/custom_radio.dart';
 
@@ -204,7 +204,9 @@ class WorkOrderDetailPage extends StatelessWidget {
                 style: GoogleFonts.roboto(fontWeight: FontWeight.w700, fontSize: 16.0, color: const Color(0xFF24292F)),
               ),
             ),
-            const CustomCheckbox(label: 'Record temperature and pressure readings (air, oil, water)',)
+            const CustomCheckbox(
+              label: 'Record temperature and pressure readings (air, oil, water)',
+            )
           ],
         ),
       ),
@@ -221,7 +223,9 @@ class WorkOrderDetailPage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {}, child: const Icon(Icons.edit)),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const WorkOrderFormPage())),
+          child: const Icon(Icons.edit)),
     );
   }
 }
