@@ -1,7 +1,7 @@
 import 'base_model.dart';
 
 class Checklist extends BaseModel {
-  final bool completed;
+  late bool completed;
   final String task;
 
   Checklist(this.completed, this.task) : super.fromJson({});

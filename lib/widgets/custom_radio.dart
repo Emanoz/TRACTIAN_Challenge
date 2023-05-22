@@ -10,12 +10,14 @@ class CustomRadio extends StatelessWidget {
   final IconData? icon;
   final String label;
   final Color color;
+  final VoidCallback? onTap;
 
   const CustomRadio({
     required this.checkBoxGroup,
     required this.currentIndex,
     required this.label,
     required this.color,
+    this.onTap,
     Key? key,
     this.icon,
   }) : super(key: key);
@@ -29,7 +31,12 @@ class CustomRadio extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           color: isSelected() ? color : Colors.white,
             child: InkWell(
-              onTap: () => checkBoxGroup.setValueState(currentIndex),
+              onTap: () {
+                if(onTap != null) {
+                  onTap!();
+                }
+                checkBoxGroup.setValueState(currentIndex);
+              },
               child: Container(
                 width: 88.0,
                 padding: EdgeInsets.symmetric(vertical: icon != null ? 16.0 : 0.0, horizontal: 12.0),

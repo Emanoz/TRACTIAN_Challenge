@@ -17,7 +17,7 @@ class WorkOrderRepository extends Repository<WorkOrder> {
   }
 
   @override
-  void getAll() async {
+  Future getAll() async {
     controller.currentState = States.loading;
     var response = await api.get(WorkOrderService.orders.url());
     Iterable l = response.data;
@@ -27,18 +27,25 @@ class WorkOrderRepository extends Repository<WorkOrder> {
   }
 
   @override
-  void getById(int id) {
+  Future getById(int id) {
     // TODO: implement getById
+    return Future.delayed(const Duration(seconds: 1));
   }
 
   @override
-  void insert(WorkOrder model) {
-    // TODO: implement insert
+  void insert(WorkOrder model) async {
+    controller.currentState = States.loading;
+    var response = await api.post(WorkOrderService.orders.url(), data: model.toJson());
+    controller.insert(WorkOrder.fromJson(response.data));
+    controller.currentState = States.done;
   }
 
   @override
-  void update(WorkOrder model) {
-    // TODO: implement update
+  Future update(WorkOrder model) async {
+    controller.currentState = States.loading;
+    var response = await api.put('${WorkOrderService.orderById.url()}/${model.id}', data: model.toJson());
+    controller.update(WorkOrder.fromJson(response.data));
+    controller.currentState = States.done;
   }
 
 }

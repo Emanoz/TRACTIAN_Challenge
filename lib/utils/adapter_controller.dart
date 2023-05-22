@@ -21,6 +21,7 @@ abstract class AdapterControllerBase<T extends BaseModel> with Store {
 
   @action
   void insertAll(List<T> items) {
+    list.clear();
     list.addAll(items);
   }
 
@@ -31,6 +32,7 @@ abstract class AdapterControllerBase<T extends BaseModel> with Store {
 
   @action
   void update(T item) {
-    list[item.id!] = item;
+    final index = list.indexWhere((element) => element.id == item.id);
+    list[index] = item;
   }
 }

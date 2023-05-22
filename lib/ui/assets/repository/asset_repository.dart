@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:tractian_app/data/models/asset_model.dart';
+import 'package:tractian_app/data/models/work_order_model.dart';
 import 'package:tractian_app/utils/repository_interface.dart';
 
 import '../../../data/api/services/asset_service.dart';
+import '../../../data/api/services/work_order_service.dart';
 import '../../../utils/adapter_controller.dart';
 import '../../../utils/enums/states.dart';
 
@@ -15,7 +17,7 @@ class AssetRepository extends Repository<Asset> {
   }
 
   @override
-  void getAll() async {
+  Future getAll() async {
     controller.currentState = States.loading;
     var response = await api.get(AssetService.assets.url());
     Iterable l = response.data;
@@ -25,8 +27,11 @@ class AssetRepository extends Repository<Asset> {
   }
 
   @override
-  void getById(int id) {
-    // TODO: implement getById
+  Future getById(int id) async {
+    controller.currentState = States.loading;
+    var response = await api.get('${AssetService.assetById.url()}/$id');
+    controller.insert(Asset.fromJson(response.data));
+    controller.currentState = States.done;
   }
 
   @override
@@ -35,10 +40,22 @@ class AssetRepository extends Repository<Asset> {
   }
 
   @override
-  void update(Asset model) {
-    // TODO: implement update
+  Future update(Asset model) {
+    return Future.delayed(const Duration(seconds: 1));
   }
 
+  Future<String> countOpenOrders() async {
+    int count = 0;
 
+    controller.currentState = States.loading;
+    var response = await api.get(WorkOrderService.orders.url());
+    Iterable l = response.data;
+    List<WorkOrder> orders = List.from(l.map((model) => WorkOrder.fromJson(model)));
+    for (var _ in orders) {
+      count++;
+    }
+    controller.currentState = States.done;
+    return count.toString();
+  }
 
 }

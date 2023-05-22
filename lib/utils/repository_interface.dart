@@ -11,7 +11,7 @@ abstract class Repository<T extends BaseModel> {
 
   void insert(T model);
   void delete(T model);
-  void update(T model);
-  void getAll();
-  void getById(int id);
+  Future update(T model);
+  Future getAll();
+  Future getById(int id);
 }

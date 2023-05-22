@@ -33,7 +33,24 @@ class ItemView extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 20.0),
-              child: image != null ? SvgPicture.asset(image!) : Container(),
+              child: image == null
+                  ? SvgPicture.asset('resources/icons/exampleImage.svg')
+                  : SizedBox(
+                      height: 72.0,
+                      width: 72.0,
+                      child: Image.network(
+                        image!,
+                        fit: BoxFit.fill,
+                        loadingBuilder: (context, child, progress) {
+                          if (progress == null) {
+                            return child;
+                          } else {
+                            return const Center(child: CircularProgressIndicator());
+                          }
+                        },
+                        frameBuilder: (context, child, event, _) => child,
+                      ),
+                    ),
             ),
             Expanded(
               child: Column(
