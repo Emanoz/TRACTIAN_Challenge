@@ -5,15 +5,15 @@ import 'health_history_model.dart';
 import 'metrics_model.dart';
 
 class Asset extends BaseModel {
-  final List<User> assignedUserIds;
+  final List<dynamic> assignedUserIds;
   final int companyId;
-  final List<HealthHistory> healthHistory;
-  final int healthScore;
+  final List<dynamic> healthHistory;
+  final int? healthScore;
   final String image;
-  final List<Metrics> metrics;
+  final Metrics metrics;
   final String model;
   final String name;
-  final List<String> sensors;
+  final List<dynamic> sensors;
   final Specifications specifications;
   final String status;
   final int unitId;
@@ -27,11 +27,11 @@ class Asset extends BaseModel {
         healthHistory = json['healthHistory'],
         healthScore = json['healthScore'],
         image = json['image'],
-        metrics = json['metrics'],
+        metrics = Metrics.fromJson(json['metrics']),
         model = json['model'],
         name = json['name'],
         sensors = json['sensors'],
-        specifications = json['specifications'],
+        specifications = Specifications.fromJson(json['specifications']),
         status = json['status'],
         unitId = json['unitId'],
         super.fromJson(json);

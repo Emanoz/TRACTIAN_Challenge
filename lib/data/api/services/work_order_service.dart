@@ -1,15 +1,15 @@
-import 'package:tractian_app/data/api/api_manager.dart';
+import '../../../main.dart';
 
-enum WorkOrderExtension {
+enum WorkOrderService {
   orders,
   //Add more work order related endpoints as available
 }
 
-extension WorkOrderService on WorkOrderExtension {
+extension WorkOrderServiceExtension on WorkOrderService {
   String url() {
     switch(this) {
-      case WorkOrderExtension.orders:
-        return '${ApiManager.baseApiUrl}/workorders';
+      case WorkOrderService.orders:
+        return '$baseUrl/workorders';
     }
   }
 }

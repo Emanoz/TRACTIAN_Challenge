@@ -154,23 +154,28 @@ class _WorkOrderFormPageState extends State<WorkOrderFormPage> {
                   ),
                 ),
               ),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  decoration: BoxDecoration(color: const Color(0xFF2188FF), borderRadius: BorderRadius.circular(3.0)),
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: SvgPicture.asset('resources/icons/saveIcon.svg'),
-                      ),
-                      Text(
-                        'SAVE',
-                        style: GoogleFonts.roboto(fontWeight: FontWeight.w500, fontSize: 16.0, color: Colors.white),
-                      )
-                    ],
+              Material(
+                clipBehavior: Clip.hardEdge,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+                color: const Color(0xFF2188FF),
+                child: InkWell(
+                  onTap: () {},
+                  child: Container(
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(3.0)),
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: SvgPicture.asset('resources/icons/saveIcon.svg'),
+                        ),
+                        Text(
+                          'SAVE',
+                          style: GoogleFonts.roboto(fontWeight: FontWeight.w500, fontSize: 16.0, color: Colors.white),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               )

@@ -26,6 +26,22 @@ mixin _$AdapterController<T extends BaseModel>
     });
   }
 
+  late final _$currentStateAtom =
+      Atom(name: 'AdapterControllerBase.currentState', context: context);
+
+  @override
+  States get currentState {
+    _$currentStateAtom.reportRead();
+    return super.currentState;
+  }
+
+  @override
+  set currentState(States value) {
+    _$currentStateAtom.reportWrite(value, super.currentState, () {
+      super.currentState = value;
+    });
+  }
+
   late final _$AdapterControllerBaseActionController =
       ActionController(name: 'AdapterControllerBase', context: context);
 
@@ -76,7 +92,8 @@ mixin _$AdapterController<T extends BaseModel>
   @override
   String toString() {
     return '''
-list: ${list}
+list: ${list},
+currentState: ${currentState}
     ''';
   }
 }

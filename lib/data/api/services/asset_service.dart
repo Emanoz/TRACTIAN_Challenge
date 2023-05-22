@@ -1,15 +1,15 @@
-import 'package:tractian_app/data/api/api_manager.dart';
+import '../../../main.dart';
 
-enum AssetServiceExtension {
+enum AssetService {
   assets,
   //Add more work order related endpoints as available
 }
 
-extension AssetService on AssetServiceExtension {
+extension AssetServiceExtension on AssetService {
   String url() {
     switch(this) {
-      case AssetServiceExtension.assets:
-        return '${ApiManager.baseApiUrl}/assets';
+      case AssetService.assets:
+        return '$baseUrl/assets';
     }
   }
 }

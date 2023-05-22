@@ -3,14 +3,20 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractian_app/ui/workOrders/work_order_form_page.dart';
 import 'package:tractian_app/utils/state_controller.dart';
+
 import '../../widgets/custom_checkbox.dart';
 import '../../widgets/custom_radio.dart';
 
-class WorkOrderDetailPage extends StatelessWidget {
+class WorkOrderDetailPage extends StatefulWidget {
   //final WorkOrder order;
 
-  WorkOrderDetailPage({Key? key}) : super(key: key);
+  const WorkOrderDetailPage({Key? key}) : super(key: key);
 
+  @override
+  State<WorkOrderDetailPage> createState() => _WorkOrderDetailPageState();
+}
+
+class _WorkOrderDetailPageState extends State<WorkOrderDetailPage> {
   final checkBoxGroup = StateController(currentValue: 0);
 
   @override

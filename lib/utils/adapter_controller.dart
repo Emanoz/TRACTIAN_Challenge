@@ -1,6 +1,8 @@
 import 'package:mobx/mobx.dart';
 import 'package:tractian_app/data/models/base_model.dart';
 
+import 'enums/states.dart';
+
 part 'adapter_controller.g.dart';
 
 class AdapterController<T extends BaseModel> = AdapterControllerBase<T> with _$AdapterController;
@@ -8,6 +10,9 @@ class AdapterController<T extends BaseModel> = AdapterControllerBase<T> with _$A
 abstract class AdapterControllerBase<T extends BaseModel> with Store {
   @observable
   ObservableList<T> list = ObservableList();
+
+  @observable
+  States currentState = States.done;
 
   @action
   void insert(T item) {
@@ -26,6 +31,6 @@ abstract class AdapterControllerBase<T extends BaseModel> with Store {
 
   @action
   void update(T item) {
-    list[item.id] = item;
+    list[item.id!] = item;
   }
 }
