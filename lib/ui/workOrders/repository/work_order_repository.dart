@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:tractian_app/data/api/services/work_order_service.dart';
 import 'package:tractian_app/utils/enums/states.dart';
@@ -35,8 +33,8 @@ class WorkOrderRepository extends Repository<WorkOrder> {
   @override
   void insert(WorkOrder model) async {
     controller.currentState = States.loading;
-    var response = await api.post(WorkOrderService.orders.url(), data: model.toJson());
-    controller.insert(WorkOrder.fromJson(response.data));
+    await api.post(WorkOrderService.orderById.url(), data: model.toJson());
+    controller.insert(model);
     controller.currentState = States.done;
   }
 
@@ -48,4 +46,12 @@ class WorkOrderRepository extends Repository<WorkOrder> {
     controller.currentState = States.done;
   }
 
+  Future<int> generateId() async {
+    controller.currentState = States.loading;
+    var response = await api.get(WorkOrderService.orders.url());
+    Iterable l = response.data;
+    List<WorkOrder> orders = List.from(l.map((model)=> WorkOrder.fromJson(model)));
+    controller.currentState = States.done;
+    return orders.last.id! + 1;
+  }
 }

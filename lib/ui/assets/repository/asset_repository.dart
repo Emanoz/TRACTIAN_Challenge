@@ -44,16 +44,14 @@ class AssetRepository extends Repository<Asset> {
     return Future.delayed(const Duration(seconds: 1));
   }
 
-  Future<String> countOpenOrders() async {
+  Future<String> countOpenOrders(int assetId) async {
     int count = 0;
 
     controller.currentState = States.loading;
     var response = await api.get(WorkOrderService.orders.url());
     Iterable l = response.data;
     List<WorkOrder> orders = List.from(l.map((model) => WorkOrder.fromJson(model)));
-    for (var _ in orders) {
-      count++;
-    }
+    count = orders.where((element) => element.assetId == assetId).length;
     controller.currentState = States.done;
     return count.toString();
   }

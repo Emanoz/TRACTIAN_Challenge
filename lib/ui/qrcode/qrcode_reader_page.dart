@@ -1,6 +1,12 @@
+import 'dart:convert';
 import 'dart:typed_data';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:tractian_app/data/models/asset_model.dart';
+import 'package:tractian_app/ui/assets/asset_detail_page.dart';
+import 'package:tractian_app/ui/assets/repository/asset_repository.dart';
+import 'package:tractian_app/utils/adapter_controller.dart';
 
 class QrCodeReaderPage extends StatelessWidget {
   const QrCodeReaderPage({Key? key}) : super(key: key);
@@ -10,24 +16,34 @@ class QrCodeReaderPage extends StatelessWidget {
     return Stack(
       children: [
         MobileScanner(
-          onDetect: (capture) {
-            final List<Barcode> barcodes = capture.barcodes;
-            final Uint8List? image = capture.image;
-            for (final barcode in barcodes) {
-              debugPrint('Barcode found! ${barcode.rawValue}');
-            }
+          controller: MobileScannerController(
+            detectionSpeed: DetectionSpeed.normal,
+            detectionTimeoutMs: 3000,
+            facing: CameraFacing.back,
+          ),
+          onDetect: (capture) async {
+            final asset = Asset.fromJson(jsonDecode(capture.barcodes.first.rawValue!));
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => AssetDetailPage(
+                  asset: asset,
+                  repository: AssetRepository(
+                    api: Dio(),
+                    controller: AdapterController<Asset>(),
+                  ),
+                ),
+              ),
+            );
+            Future.delayed(const Duration(seconds: 1));
           },
         ),
         ColorFiltered(
-          colorFilter: ColorFilter.mode(
-              Colors.black.withOpacity(0.3), BlendMode.srcOut),
+          colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.3), BlendMode.srcOut),
           child: Stack(
             fit: StackFit.expand,
             children: [
               Container(
-                decoration: const BoxDecoration(
-                    color: Colors.black,
-                    backgroundBlendMode: BlendMode.dstOut),
+                decoration: const BoxDecoration(color: Colors.black, backgroundBlendMode: BlendMode.dstOut),
               ),
               Align(
                 alignment: Alignment.center,

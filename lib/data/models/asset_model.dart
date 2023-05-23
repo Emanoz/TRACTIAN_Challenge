@@ -1,9 +1,6 @@
 import 'package:tractian_app/data/models/base_model.dart';
-import 'package:tractian_app/data/models/specifications_model.dart';
-import 'package:tractian_app/data/models/user_model.dart';
+
 import '../../utils/enums/assets_status.dart';
-import 'health_history_model.dart';
-import 'metrics_model.dart';
 
 class Asset extends BaseModel {
   final List<dynamic> assignedUserIds;

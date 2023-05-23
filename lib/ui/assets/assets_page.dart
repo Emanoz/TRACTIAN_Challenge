@@ -5,7 +5,6 @@ import 'package:tractian_app/data/models/asset_model.dart';
 import 'package:tractian_app/ui/assets/asset_detail_page.dart';
 import 'package:tractian_app/ui/assets/repository/asset_repository.dart';
 import 'package:tractian_app/utils/adapter_controller.dart';
-import 'package:tractian_app/utils/enums/assets_status.dart';
 import 'package:tractian_app/utils/repository_interface.dart';
 import 'package:tractian_app/widgets/item_view.dart';
 

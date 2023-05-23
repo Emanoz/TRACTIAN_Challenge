@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractian_app/ui/assets/repository/asset_repository.dart';
 import 'package:tractian_app/utils/enums/assets_status.dart';
+import 'package:tractian_app/utils/state_controller.dart';
 import 'package:tractian_app/widgets/icon_title_tile.dart';
 
 import '../../data/models/asset_model.dart';
@@ -18,7 +20,7 @@ class AssetDetailPage extends StatefulWidget {
 }
 
 class _AssetDetailPageState extends State<AssetDetailPage> {
-  String _openOrders = "";
+  final controllerOpenOrders = StateController(currentValue: "");
 
   @override
   void initState() {
@@ -27,11 +29,7 @@ class _AssetDetailPageState extends State<AssetDetailPage> {
   }
 
   void initRequest() async {
-    (widget.repository as AssetRepository).countOpenOrders().then((value) {
-      setState(() {
-        _openOrders = value;
-      });
-    });
+    controllerOpenOrders.setValueState(await (widget.repository as AssetRepository).countOpenOrders(widget.asset.id!));
   }
 
   @override
@@ -82,8 +80,8 @@ class _AssetDetailPageState extends State<AssetDetailPage> {
                     ),
                     child: Text(
                       widget.asset.checkStatus().text(),
-                      style:
-                          GoogleFonts.roboto(fontWeight: FontWeight.w500, fontSize: 14.0, color: const Color(0xFFFAFAFA)),
+                      style: GoogleFonts.roboto(
+                          fontWeight: FontWeight.w500, fontSize: 14.0, color: const Color(0xFFFAFAFA)),
                     ),
                   ),
                 ],
@@ -99,14 +97,14 @@ class _AssetDetailPageState extends State<AssetDetailPage> {
                 title: 'Model',
                 subtitle: widget.asset.model ?? '',
               ),
-              Row(
+              /*Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: SvgPicture.asset('resources/icons/rollerIcon.svg'),
                   ),
-                  /*Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
@@ -129,11 +127,15 @@ class _AssetDetailPageState extends State<AssetDetailPage> {
                         ),
                       ),
                     ],
-                  )*/
+                  )
                 ],
               ),
-              const Divider(),
-              IconTitleTile(icon: 'resources/icons/orderIcon.svg', title: 'Open Orders', subtitle: _openOrders),
+              const Divider(),*/
+              Observer(
+                builder: (context) {
+                  return IconTitleTile(icon: 'resources/icons/orderIcon.svg', title: 'Open Orders', subtitle: controllerOpenOrders.currentValue);
+                }
+              ),
               IconTitleTile(
                   icon: 'resources/icons/scoreIcon.svg',
                   title: 'Health Score',

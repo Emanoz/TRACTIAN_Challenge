@@ -1,5 +1,7 @@
 import 'package:tractian_app/data/models/base_model.dart';
 
+import '../../utils/enums/assets_status.dart';
+
 class HealthHistory extends BaseModel {
   final String status;
   final String timestamp;
@@ -16,4 +18,19 @@ class HealthHistory extends BaseModel {
     'status': status,
     'timestamp': timestamp,
   };
+
+  AssetsStatus checkStatus() {
+    switch(status) {
+      case 'inOperation':
+        return AssetsStatus.inOperation;
+      case 'inDowntime':
+        return AssetsStatus.inDowntime;
+      case 'inAlert':
+        return AssetsStatus.inAlert;
+      case 'unplannedStop':
+        return AssetsStatus.plannedStop;
+      default:
+        return AssetsStatus.done;
+    }
+  }
 }

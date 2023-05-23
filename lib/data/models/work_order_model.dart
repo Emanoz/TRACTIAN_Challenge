@@ -1,11 +1,9 @@
 import 'package:tractian_app/data/models/base_model.dart';
-import 'package:tractian_app/data/models/user_model.dart';
 
 import '../../utils/enums/assets_status.dart';
-import 'asset_model.dart';
-import 'checklist_model.dart';
 
 class WorkOrder extends BaseModel {
+  int orderId = 0;
   final String title;
   final String description;
   final String priority;
@@ -15,8 +13,8 @@ class WorkOrder extends BaseModel {
   late String status;
 
   WorkOrder(
-      this.title, this.description, this.priority, this.assetId, this.assignedUserIds, this.checklist, this.status)
-      : super.fromJson({});
+      this.orderId, this.title, this.description, this.priority, this.assetId, this.assignedUserIds, this.checklist, this.status)
+      : super.fromJson({'id': orderId});
 
   WorkOrder.fromJson(Map<String, dynamic> json)
       : title = json['title'],
@@ -54,6 +52,10 @@ class WorkOrder extends BaseModel {
         return AssetsStatus.onHold;
       case 'high':
         return AssetsStatus.high;
+      case 'medium':
+        return AssetsStatus.medium;
+      case 'low':
+        return AssetsStatus.low;
       default:
         return AssetsStatus.done;
     }

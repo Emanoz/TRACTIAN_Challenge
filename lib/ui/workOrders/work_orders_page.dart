@@ -9,8 +9,8 @@ import 'package:tractian_app/ui/users/repository/user_repository.dart';
 import 'package:tractian_app/ui/workOrders/work_order_detail_page.dart';
 import 'package:tractian_app/ui/workOrders/work_order_form_page.dart';
 import 'package:tractian_app/utils/adapter_controller.dart';
-import 'package:tractian_app/utils/enums/assets_status.dart';
 import 'package:tractian_app/utils/repository_interface.dart';
+
 import '../../utils/enums/states.dart';
 import '../../widgets/item_view.dart';
 import '../assets/repository/asset_repository.dart';
@@ -76,7 +76,7 @@ class _WorkOrdersPageState extends State<WorkOrdersPage> {
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (_) => WorkOrderDetailPage(
-                                order: widget.repository.controller.list[index],
+                                orderIndex: index,
                                 workRepository: widget.repository,
                                 userRepository: UserRepository(api: Dio(), controller: AdapterController<User>()),
                                 assetRepository: AssetRepository(api: Dio(), controller: AdapterController<Asset>()),
@@ -106,6 +106,7 @@ class _WorkOrdersPageState extends State<WorkOrdersPage> {
                       api: Dio(),
                       controller: AdapterController<User>(),
                     ),
+                    orderRepository: widget.repository,
                   ),
                 ),
               ),

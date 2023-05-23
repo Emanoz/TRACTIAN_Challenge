@@ -5,6 +5,8 @@ enum AssetsStatus {
   completed,
   onHold,
   high,
+  medium,
+  low,
   inAlert,
   inOperation,
   inDowntime,
@@ -34,6 +36,10 @@ extension AssetsStatusExteension on AssetsStatus {
         return 'In Downtime';
       case AssetsStatus.plannedStop:
         return 'Planned Stop';
+      case AssetsStatus.medium:
+        return 'Medium';
+      case AssetsStatus.low:
+        return 'Low';
     }
   }
 
@@ -44,12 +50,14 @@ extension AssetsStatusExteension on AssetsStatus {
       case AssetsStatus.inProgress:
         return 0xFF2188FF;
       case AssetsStatus.completed:
+      case AssetsStatus.low:
       case AssetsStatus.done:
         return 0xFF52C41A;
       case AssetsStatus.plannedStop:
       case AssetsStatus.inDowntime:
       case AssetsStatus.inOperation:
       case AssetsStatus.inAlert:
+      case AssetsStatus.medium:
       case AssetsStatus.onHold:
         return 0xFFFB8F44;
       case AssetsStatus.high:
